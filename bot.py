@@ -1,28 +1,34 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
+os.environ['PATH'] += r"C:/ChromeDriver"
+driver = webdriver.Chrome()
 
-def test_eight_components():
-    driver = webdriver.Chrome(service=ChromeService(
-        executable_path=ChromeDriverManager().install()))
+my_user_name = "standard_user"
+my_password = "secret_sauce"
 
-    driver.get("https://www.selenium.dev/selenium/web/web-form.html")
+# Opens the URL page
+driver.get("https://www.saucedemo.com/")
 
-    title = driver.title
-    assert title == "Web form"
+driver.implicitly_wait(5)  # wait for 3 sec after loading browser
 
-    driver.implicitly_wait(0.5)
+try:
+    user_name = driver.find_element(By.ID, "user-name")
+    password = driver.find_element(By.ID, "password")
+    login_button = driver.find_element(By.ID, "login-button")
+except:
+    print("No elements with this Id name")
 
-    text_box = driver.find_element(by=By.NAME, value="my-text")
-    submit_button = driver.find_element(by=By.CSS_SELECTOR, value="button")
+user_name.send_keys(my_user_name)
+password.send_keys(my_password)
 
-    text_box.send_keys("Selenium")
-    submit_button.click()
-
-    message = driver.find_element(by=By.ID, value="message")
-    value = message.text
-    assert value == "Received!"
-
-    driver.quit()
+try:
+    WebDriverWait(driver, 3).until(
+        EC.presence_of_element_located((By.ID, "user-name"), "standard_user ")
+    )
+finally:
+    login_button.click()
