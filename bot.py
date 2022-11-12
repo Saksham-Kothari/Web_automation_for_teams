@@ -20,9 +20,12 @@ try:
     user_name = driver.find_element(By.ID, "user-name")
     password = driver.find_element(By.ID, "password")
     login_button = driver.find_element(By.ID, "login-button")
+    addt_to_cart = driver.find_element(
+        By.ID, "add-to-cart-sauce-labs-bike-light")
 except:
     print("No elements with this Id name")
 
+# send keys for sending information
 user_name.send_keys(my_user_name)
 password.send_keys(my_password)
 
@@ -32,3 +35,11 @@ try:
     )
 finally:
     login_button.click()
+
+try:
+    WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located(
+            (By.ID, "add-to-cart-sauce-labs-bike-light"))
+    )
+finally:
+    addt_to_cart.click()
