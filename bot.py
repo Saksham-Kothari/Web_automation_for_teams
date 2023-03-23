@@ -10,8 +10,8 @@ import sqlite3
 os.environ['PATH'] += r"C:/ChromeDriver"
 driver = webdriver.Chrome()
 
-my_email_id = "mohit.laxminarayan2021@vitbhopal.ac.in"
-my_password = "Mohit@461981"
+my_email_id = "jksdhflakjshldjf@gmail.com"
+my_password = "abcdef"
 
 # Opens the URL page
 driver.get("https://teams.microsoft.com")
